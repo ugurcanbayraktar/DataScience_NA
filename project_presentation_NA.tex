@@ -1,0 +1,641 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{Statistics of earthquake hazards in Turkey and comparison with
+the world}
+\author{Team NA}
+\date{1/30/2022}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Statistics of earthquake hazards in Turkey and comparison with the world},
+  pdfauthor={Team NA},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{project-final-report}{%
+\subsection{Project Final Report}\label{project-final-report}}
+
+\hypertarget{team-members}{%
+\subsection{Team Members}\label{team-members}}
+
+\begin{itemize}
+\tightlist
+\item
+  Furkan Eskicioglu
+\item
+  Ugurcan Bayraktar
+\end{itemize}
+
+\includegraphics{https://blogs.agu.org/tremblingearth/files/2013/08/Seismogram.png}
+
+\hypertarget{project-description}{%
+\subsection{Project Description}\label{project-description}}
+
+\hypertarget{project-goal-social-problem}{%
+\subsubsection{Project Goal \& Social
+Problem}\label{project-goal-social-problem}}
+
+We have determined the earthquake, which is one of the natural disasters
+that can be devastating and unpredictable, especially in regions that
+are not used to earthquakes.
+
+The aim of this project is to understand whether there is a relationship
+between earthquakes in the world. In this direction, historical,
+regional and trigger links between earthquakes were sought.
+
+\hypertarget{project-data-access-to-data}{%
+\subsubsection{Project data \& access to
+data}\label{project-data-access-to-data}}
+
+We knew that our dataset selection was important in order to make
+earthquake data more meaningful, so we chose the United States
+Geological Survey to access worldwide data, and Boğaziçi University
+Kandilli Observatory and Earthquake Research Institute to access data
+specific to Turkey. For this purpose, we used the earthquake data of the
+USGS and KOERI for the years 2016-2020.
+
+The datasets were easily obtained in the web interface thanks to the API
+provided by the USGS and KOERI. The data used in the analysis consists
+of data with a magnitude \textgreater2.5 in order to increase accuracy
+and avoid confusion.
+
+\hypertarget{actions-taken}{%
+\subsection{Actions taken}\label{actions-taken}}
+
+Within the scope of the project, we first tried to clean the data we
+imported from the USGS and KOERI sites. Because they were included in
+the dataset for uncertain earthquakes, we had to exclude them so that
+they do not affect the analysis. When importing the data, it made our
+job very easy as we got the size \textgreater2.5. In the next process,
+we cleaned \textasciitilde2k lines of missing data. We reclassified the
+variables by data types and looked at their statistics for numeric
+variables to give us an idea. We then decided on the visualizations that
+we thought might be useful and tried to draw them.
+
+\hypertarget{introduction-to-datasets}{%
+\paragraph{Introduction to Datasets}\label{introduction-to-datasets}}
+
+\hypertarget{koeri-dataset}{%
+\subparagraph{KOERI Dataset}\label{koeri-dataset}}
+
+\href{http://www.koeri.boun.edu.tr/sismo/2/earthquake-catalog/}{\textbf{KOERI(Kandilli
+Observatory and Earthquake Research Institute) Earthquake Catalog}} is
+the website we will use for detailed Turkey earthquake data.
+
+\hypertarget{the-parameters-and-their-explanations-in-this-data-are-given-below}{%
+\paragraph{The parameters and their explanations in this data are given
+below:}\label{the-parameters-and-their-explanations-in-this-data-are-given-below}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.15}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.85}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+Param Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule
+\endhead
+No & Event Sequence \\
+Event ID & Unic ID for event {[}YYYYMMDDHHMMSS
+(YearMonthDayHourMinuteSecond){]} \\
+Date & Date of event specified in the following format YYYY.MM.DD
+(Year.Month.Day) \\
+Origin Time & Origin time of event (UTC) specified in the following
+format HH:MM:SS.MS \\
+Latitude & in decimal degrees \\
+Longitude & in decimal degrees \\
+Depth(km) & Depth of the event in kilometers \\
+Mag & Magnitude for the event \\
+Type & Earthquake (Ke) or Suspected Explosion (Sm) \\
+Location & Nearest settlement \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{usgs-dataset}{%
+\subparagraph{USGS Dataset}\label{usgs-dataset}}
+
+\href{https://earthquake.usgs.gov/earthquakes/search/}{\textbf{USGS
+(United States Geological Survey) Search Catalog}} is the other website
+we will use for the details of the world-wide earthquake data. We
+obtained the datasets annually as seperate files, therefore these
+datasets have to be merged.
+
+\hypertarget{the-parameters-and-their-explanations-for-this-data-are-given-below}{%
+\paragraph{The parameters and their explanations for this data are given
+below:}\label{the-parameters-and-their-explanations-for-this-data-are-given-below}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.15}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.85}}@{}}
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+Param Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule
+\endhead
+time & Time when the event occurred. Times are reported in milliseconds
+since the epoch \\
+latitude & Decimal degrees latitude. Negative values for southern
+latitudes \\
+longitude & Decimal degrees longitude. Negative values for western
+longitudes \\
+depth & Depth of the event in kilometers \\
+mag & The magnitude for the event \\
+magType & The method or algorithm used to calculate the preferred
+magnitude for the event \\
+nst & The total number of seismic stations used to determine earthquake
+location \\
+gap & The largest azimuthal gap between azimuthally adjacent stations
+(in degrees) \\
+dmin & Horizontal distance from the epicenter to the nearest station (in
+degrees) \\
+rms & The root-mean-square (RMS) travel time residual, in sec, using all
+weights \\
+net & The ID of a data contributor \\
+id & A unique identifier for the event \\
+updated & Time when the event was most recently updated \\
+place & Textual description of named geographic region near to the
+event \\
+type & A comma-separated list of product types associated to this
+event \\
+horizontalError & Uncertainty of reported location of the event in
+kilometers \\
+depthError & Uncertainty of reported depth of the event in kilometers \\
+magError & Uncertainty of reported magnitude of the event \\
+magNst & The total number of seismic stations used to calculate the
+magnitude for this earthquake \\
+status & Indicates whether the event has been reviewed by a human \\
+locationSource & The network that originally authored the reported
+location of this event \\
+magSource & Network that originally authored the reported magnitude for
+this event \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{we-have-classified-earthquakes-according-to-their-magnitudes-2.5-4-4-5-5-6-6-7-7-9-formats-for-use-in-graphics.}{%
+\paragraph{We have classified earthquakes according to their magnitudes
+(2.5-4, 4-5, 5-6, 6-7, 7-9 formats) for use in
+graphics.}\label{we-have-classified-earthquakes-according-to-their-magnitudes-2.5-4-4-5-5-6-6-7-7-9-formats-for-use-in-graphics.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#KOERI}
+\NormalTok{turkey\_tidyquake }\OtherTok{\textless{}{-}}\NormalTok{ turkey\_tidyquake }\SpecialCharTok{\%\textgreater{}\%} 
+                      \FunctionTok{mutate}\NormalTok{(}\AttributeTok{magClass =} \FunctionTok{cut}\NormalTok{(Mag, }\AttributeTok{breaks=}\FunctionTok{c}\NormalTok{(}\FloatTok{2.4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{9}\NormalTok{),}
+                                            \AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{"2.5{-}4"}\NormalTok{, }\StringTok{"4{-}5"}\NormalTok{, }\StringTok{"5{-}6"}\NormalTok{, }\StringTok{"6{-}7"}\NormalTok{, }\StringTok{"7{-}9"}\NormalTok{)))}
+\CommentTok{\#USGS}
+\NormalTok{data}\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(data, }\AttributeTok{magClass=}\FunctionTok{cut}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{mag, }\AttributeTok{breaks=}\FunctionTok{c}\NormalTok{(}\FloatTok{2.4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{9}\NormalTok{), }\AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{"2.5{-}4"}\NormalTok{, }\StringTok{"4{-}5"}\NormalTok{, }\StringTok{"5{-}6"}\NormalTok{, }\StringTok{"6{-}7"}\NormalTok{, }\StringTok{"7{-}9"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{quick-stats-summary-check-at-numeric-variables}{%
+\paragraph{Quick stats summary check at numeric
+variables}\label{quick-stats-summary-check-at-numeric-variables}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sapply}\NormalTok{(data[,}\FunctionTok{names}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{sapply}\NormalTok{(data, class) }\SpecialCharTok{==} \StringTok{"numeric"}\NormalTok{))],summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $latitude
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -82.8837   0.0914  19.4058  20.2736  42.3552  87.3860 
+## 
+## $longitude
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## -180.00 -155.26  -94.22  -49.60   74.00  180.00 
+## 
+## $depth
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   -3.60    9.00   11.91   55.31   46.62  679.12 
+## 
+## $mag
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   2.500   2.800   3.600   3.661   4.400   8.200 
+## 
+## $gap
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##     7.0    66.0   112.0   129.7   186.0   359.0   14300 
+## 
+## $dmin
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   0.000   0.148   0.961   2.183   2.586 127.420   18523 
+## 
+## $rms
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##  0.0000  0.2800  0.5900  0.5932  0.8400 46.2400       5 
+## 
+## $horizontalError
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   0.000   1.300   5.700   5.819   8.800  99.000   14206 
+## 
+## $depthError
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+##    0.000    0.800    2.000    4.737    7.200 2329.800        7 
+## 
+## $magError
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   0.000   0.078   0.129   0.249   0.200   5.670   22369
+\end{verbatim}
+
+\hypertarget{distribution-of-earthquakes-on-the-world-map-according-to-their-magnitude}{%
+\paragraph{Distribution of earthquakes on the world map according to
+their
+magnitude}\label{distribution-of-earthquakes-on-the-world-map-according-to-their-magnitude}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#World map}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{geom\_map}\NormalTok{(}\AttributeTok{data =} \FunctionTok{map\_data}\NormalTok{(}\StringTok{"world"}\NormalTok{), }\AttributeTok{map =} \FunctionTok{map\_data}\NormalTok{(}\StringTok{"world"}\NormalTok{), }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ long, }\AttributeTok{y=}\NormalTok{lat, }\AttributeTok{group=}\NormalTok{group, }\AttributeTok{map\_id=}\NormalTok{region), }\AttributeTok{fill=}\StringTok{"white"}\NormalTok{, }\AttributeTok{colour=}\StringTok{"\#7f7f7f"}\NormalTok{, }\AttributeTok{size=}\FloatTok{0.5}\NormalTok{)}
+
+\CommentTok{\#Earthquakes points}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{longitude, }\AttributeTok{y =}\NormalTok{ latitude, }\AttributeTok{colour =}\NormalTok{ mag)) }\SpecialCharTok{+} \FunctionTok{scale\_colour\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"\#00AA00"}\NormalTok{,}\AttributeTok{high =} \StringTok{"red"}\NormalTok{)}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\hypertarget{distribution-of-earthquakes-on-turkey-according-to-their-magnitude}{%
+\paragraph{Distribution of earthquakes on Turkey according to their
+magnitude}\label{distribution-of-earthquakes-on-turkey-according-to-their-magnitude}}
+
+Spatial map of Turkey is obtained from GADM(Database of Global
+Administrative Areas)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#url\_turkey \textless{}{-} "https://biogeo.ucdavis.edu/data/gadm3.6/Rsp/gadm36\_TUR\_1\_sp.rds"}
+\CommentTok{\#download.file(url\_turkey, "data/sp\_turkey.rds")}
+
+\NormalTok{tr\_sp }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\StringTok{"data/sp\_turkey.rds"}\NormalTok{)}
+\CommentTok{\#plot(tr\_sp)}
+
+\CommentTok{\# Spatial data is converted to data frame below. Provinces are named below NAME\_1 column.}
+\NormalTok{tr\_df }\OtherTok{\textless{}{-}}\NormalTok{ tr\_sp }\SpecialCharTok{\%\textgreater{}\%} 
+          \FunctionTok{as\_tibble}\NormalTok{()}
+
+\CommentTok{\# We obtain geographical data for Turkey.}
+\NormalTok{tr\_geo }\OtherTok{\textless{}{-}}\NormalTok{ tr\_sp }\SpecialCharTok{\%\textgreater{}\%} 
+            \FunctionTok{fortify}\NormalTok{()}
+
+\CommentTok{\# Dataframe that contains provinces is created and joint to geographical data for Turkey. }
+\FunctionTok{library}\NormalTok{(stringi) }\CommentTok{\#This is for Turkish characters such as ü, ş, etc.}
+\NormalTok{prov }\OtherTok{=} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{id =} \FunctionTok{rownames}\NormalTok{(tr\_df), }\AttributeTok{province =} \FunctionTok{stri\_trans\_general}\NormalTok{(tr\_df}\SpecialCharTok{$}\NormalTok{NAME\_1, }\StringTok{"Latin{-}ASCII"}\NormalTok{))}
+\NormalTok{tr\_geo\_final }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(tr\_geo, prov, }\AttributeTok{by =} \StringTok{"id"}\NormalTok{)}
+\NormalTok{tr\_geo\_final}\SpecialCharTok{$}\NormalTok{id }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(tr\_geo\_final}\SpecialCharTok{$}\NormalTok{id)}
+
+\CommentTok{\# Using our geographical data, we can draw the map of Turkey with ggplot.}
+\NormalTok{tr\_map }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{()}\SpecialCharTok{+}
+            \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+            \CommentTok{\#Drawing the borders of Turkey and its provinces}
+            \FunctionTok{geom\_polygon}\NormalTok{(}\AttributeTok{data =}\NormalTok{ tr\_geo\_final, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{long, }\AttributeTok{y =}\NormalTok{ lat, }\AttributeTok{group =}\NormalTok{ group, }\AttributeTok{map\_id =}\NormalTok{ id),}
+                         \AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+            \CommentTok{\#Fixed the scale of coordinate system}
+            \FunctionTok{coord\_fixed}\NormalTok{()}
+
+\CommentTok{\# At the end, the locations of the earthquakes are pointed on the map.}
+\NormalTok{tr\_map }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Earthquake Map of Turkey in Years 2016{-}2020"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{data =}\NormalTok{ turkey\_tidyquake, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Longitude, }\AttributeTok{y =}\NormalTok{ Latitude, }\AttributeTok{color =}\NormalTok{ Mag), }\AttributeTok{alpha=}\FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_gradient}\NormalTok{(}\AttributeTok{low =} \StringTok{"\#00AA00"}\NormalTok{, }\AttributeTok{high =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+As seen above, earthquakes are occurred often on northwest to southwest
+of Turkey. Also, we can see the earthquakes are common on The North
+Anatolian Fault.
+
+\hypertarget{distribution-of-the-number-of-earthquakes-by-years.}{%
+\paragraph{Distribution of The Number of Earthquakes by
+Years.}\label{distribution-of-the-number-of-earthquakes-by-years.}}
+
+As seen below, more than 20 thousand earthquakes occurred each year from
+2016 to 2020. In 2018, there were nearly twice as many earthquakes
+occurred, compared to 2017. This is the highest count of earthquakes in
+these 5 years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{year}\OtherTok{\textless{}{-}}\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(year) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tally}\NormalTok{()}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(year) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{year, }\AttributeTok{y=}\NormalTok{n, }\AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(n)), }\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{)}\SpecialCharTok{+}
+      \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"YlOrRd"}\NormalTok{)}\SpecialCharTok{+}
+      \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+      \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Distribution of Earthquake Counts in The World by Years"}\NormalTok{) }\SpecialCharTok{+}
+      \FunctionTok{xlab}\NormalTok{(}\StringTok{"Years"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Counts"}\NormalTok{)}
+
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+In Turkey, there are more than one thousand earthquakes happened each
+year from 2016 to 2020. In 2017, more than 5000 of earthquakes occurred
+in Turkey, which is a peak in these 5 years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{year\_turkey }\OtherTok{\textless{}{-}}\NormalTok{ turkey\_tidyquake }\SpecialCharTok{\%\textgreater{}\%}
+                \FunctionTok{group\_by}\NormalTok{(Year) }\SpecialCharTok{\%\textgreater{}\%} 
+                \FunctionTok{tally}\NormalTok{()}
+\NormalTok{tr\_yearthquake }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(year\_turkey) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year, }\AttributeTok{y =}\NormalTok{ n, }\AttributeTok{fill =} \FunctionTok{as.factor}\NormalTok{(n)),}
+                                                 \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{)}\SpecialCharTok{+}
+                  \FunctionTok{scale\_fill\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Blues"}\NormalTok{)}\SpecialCharTok{+}
+                  \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+                  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}\SpecialCharTok{+}
+                  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Counts"}\NormalTok{)}
+\NormalTok{tr\_yearthquake }\OtherTok{\textless{}{-}}\NormalTok{ tr\_yearthquake }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Distribution of Earthquake Counts in Turkey by Years"}\NormalTok{)}
+\NormalTok{tr\_yearthquake}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\hypertarget{distribution-of-the-number-of-earthquakes-by-months.}{%
+\paragraph{Distribution of The Number of Earthquakes by
+Months.}\label{distribution-of-the-number-of-earthquakes-by-months.}}
+
+There are more than 10 thousand earthquakes observed in the world each
+year from 2016 to 2020. The count of earthquakes increased on Summer.
+Therefore there could be a relationship between temperature and the
+earthquakes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(RColorBrewer)}
+\NormalTok{month}\OtherTok{\textless{}{-}}\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(month) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tally}\NormalTok{()}
+\NormalTok{world\_monthquake }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(month) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{month, }\AttributeTok{y=}\NormalTok{n, }\AttributeTok{fill=} \FunctionTok{as.factor}\NormalTok{(n)), }\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+     \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{colorRampPalette}\NormalTok{(}\FunctionTok{brewer.pal}\NormalTok{(}\DecValTok{9}\NormalTok{,}\StringTok{"PuRd"}\NormalTok{))(}\DecValTok{12}\NormalTok{))}\SpecialCharTok{+}
+     \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+     \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\NormalTok{world\_monthquake }\OtherTok{\textless{}{-}}\NormalTok{ world\_monthquake }\SpecialCharTok{+} \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Distribution of Earthquake Counts in The World by Months"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Months"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Counts"}\NormalTok{)}
+\NormalTok{world\_monthquake}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-17-1.pdf}
+In Turkey, we also see the number of earthquakes are increased on Summer
+season, while the most of earthquakes occurred in January and February.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tr\_monthquake }\OtherTok{\textless{}{-}}\NormalTok{ turkey\_tidyquake }\SpecialCharTok{\%\textgreater{}\%} 
+                  \FunctionTok{group\_by}\NormalTok{(Month) }\SpecialCharTok{\%\textgreater{}\%} 
+                  \FunctionTok{tally}\NormalTok{()}
+\NormalTok{tr\_month\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(tr\_monthquake) }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{Month, }\AttributeTok{y=}\NormalTok{n, }\AttributeTok{fill=} \FunctionTok{as.factor}\NormalTok{(n)),}
+                                                  \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+                  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{colorRampPalette}\NormalTok{(}\FunctionTok{brewer.pal}\NormalTok{(}\DecValTok{9}\NormalTok{,}\StringTok{"Oranges"}\NormalTok{))(}\DecValTok{12}\NormalTok{))}\SpecialCharTok{+}
+                  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{12}\NormalTok{))}\SpecialCharTok{+}
+                  \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+                  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"none"}\NormalTok{)}
+\NormalTok{tr\_month\_plot }\OtherTok{\textless{}{-}}\NormalTok{ tr\_month\_plot }\SpecialCharTok{+} 
+                  \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Distribution of Earthquake Counts in Turkey by Months"}\NormalTok{)}
+\NormalTok{tr\_month\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\hypertarget{distribution-of-the-earthquakes-by-years-and-magnitude-classes.}{%
+\paragraph{Distribution of The Earthquakes by years and magnitude
+classes.}\label{distribution-of-the-earthquakes-by-years-and-magnitude-classes.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{year}\OtherTok{\textless{}{-}}\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(year, magClass) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tally}\NormalTok{()}
+\NormalTok{year}\SpecialCharTok{\%\textgreater{}\%}\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(year, n))}\SpecialCharTok{+}
+\FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{1}\NormalTok{, }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{magClass,  }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{, }\AttributeTok{scales=}\StringTok{"free"}\NormalTok{)}\SpecialCharTok{+}
+   \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Number of Earthquakes by Magnitude Class and Year"}\NormalTok{) }\SpecialCharTok{+}
+           \FunctionTok{xlab}\NormalTok{(}\StringTok{"Year"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Number of Cases"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face=}\StringTok{"bold"}\NormalTok{, }\AttributeTok{size=}\DecValTok{14}\NormalTok{, }\AttributeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+\FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face=}\StringTok{"bold"}\NormalTok{, }\AttributeTok{size=}\DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\hypertarget{lets-examine-the-distribution-of-earthquakes-on-earth-by-months-and-magnitude-classes.}{%
+\paragraph{Let's examine the distribution of earthquakes on Earth by
+months and magnitude
+classes.}\label{lets-examine-the-distribution-of-earthquakes-on-earth-by-months-and-magnitude-classes.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{month}\OtherTok{\textless{}{-}}\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{group\_by}\NormalTok{(month, magClass) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tally}\NormalTok{()}
+\NormalTok{month}\SpecialCharTok{\%\textgreater{}\%}\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(month, n))}\SpecialCharTok{+}
+\FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size=}\DecValTok{1}\NormalTok{, }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{magClass,  }\AttributeTok{ncol=}\DecValTok{2}\NormalTok{, }\AttributeTok{scales=}\StringTok{"free"}\NormalTok{)}\SpecialCharTok{+}
+   \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"Number of Earthquakes by Magnitude Class and Month"}\NormalTok{) }\SpecialCharTok{+}
+           \FunctionTok{xlab}\NormalTok{(}\StringTok{"Months"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Number of Cases"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face=}\StringTok{"bold"}\NormalTok{, }\AttributeTok{size=}\DecValTok{14}\NormalTok{, }\AttributeTok{hjust=}\FloatTok{0.5}\NormalTok{)) }\SpecialCharTok{+}
+\FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face=}\StringTok{"bold"}\NormalTok{, }\AttributeTok{size=}\DecValTok{12}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\hypertarget{lets-check-the-density-function-of-magnitude.}{%
+\paragraph{Let's check the density function of
+Magnitude.}\label{lets-check-the-density-function-of-magnitude.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggdensity}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{mag, }
+          \AttributeTok{main =} \StringTok{"Density plot of magnitude"}\NormalTok{,}
+          \AttributeTok{xlab =} \StringTok{"Magnitute"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{project_presentation_NA_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\hypertarget{results-and-discussion}{%
+\subsection{Results and Discussion}\label{results-and-discussion}}
+
+As a result of our research, we have reached: We learned the averages of
+earthquake magnitudes in the world. On the world map, we have seen that
+earthquakes are more intense on coastlines. Compared to other years, we
+saw that the number of earthquakes in 2018 was almost doubled. We
+observed an increase in the number of earthquakes in the summer months.
+This increase seems especially 2.5-4 magnitude range.
+
+Thanks to our project, we obtained separate insights from earthquake
+data of the World and Turkey. We checked whether the earthquake
+relations are a link between the world and Turkey. We compared the world
+averages with Turkey, which is known as the earthquake zone. In this
+process, we determined that we could make comparisons on the basis of
+size, hourly, seasonal, seasonal (sea/terrestrial) and we focused on
+these factors in our research accordingly.
+
+\hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+As a result, we used data transfer, cleaning, reconstruction according
+to data types and basic visualization processes in the analysis of
+earthquake data in the world and Turkey between the years 2016-2020,
+which we obtained from USGS and KOERI organizations, which we identified
+as reliable data sources. In this way, we provided the opportunity to
+visually see whether there is a similarity between the earthquakes that
+took place in the world and in Turkey. In this way, we tried to figure
+out whether our country, which we refer to as an earthquake zone, is
+really an above-average earthquake zone when compared to other countries
+in the world.
+
+You can also access our project's GitHub page here:
+\href{https://github.com/MAT381E-Fall21/project_final_report-na}{Statistics
+of earthquake hazards in Turkey and comparison with the world}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://earthquake.usgs.gov/earthquakes/search/}
+\item
+  \url{https://earthquake.usgs.gov/data/comcat/index.php}
+\item
+  \url{http://www.koeri.boun.edu.tr/sismo/2/earthquake-catalog/}
+\item
+  \url{https://towardsdatascience.com/reverse-geocoding-in-r-f7fe4b908355}
+\item
+  \url{https://tevfikbulut.com/2020/02/02/exploratory-data-analysis-of-turkey-earthquakes-ii/}
+\item
+  \url{https://www.r-bloggers.com/2019/04/earthquake-analysis-1-4-quantitative-variables-exploratory-analysis/}
+\end{itemize}
+
+\end{document}

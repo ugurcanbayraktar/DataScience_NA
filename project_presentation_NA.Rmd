@@ -1,0 +1,378 @@
+---
+title: "Statistics Of Earthquake Hazards In Turkey and Comparison With The World"
+author: "Team NA"
+date: "1/30/2022"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Project Final Report
+
+## Team Members
+* Furkan Eskicioğlu 090170337
+* Uğurcan Bayraktar 090170349
+
+![](https://blogs.agu.org/tremblingearth/files/2013/08/Seismogram.png)
+
+## Project Description
+### Project Goal & Social Problem
+We have determined the earthquake, which is one of the natural disasters that can be devastating and unpredictable, especially in regions that are not used to earthquakes.
+
+The aim of this project is to understand whether there is a relationship between earthquakes in the world. In this direction, historical, regional and trigger links between earthquakes were sought.
+
+### Project data & access to data
+We knew that our dataset selection was important in order to make earthquake data more meaningful, so we chose the United States Geological Survey to access worldwide data, and Boğaziçi University Kandilli Observatory and Earthquake Research Institute to access data specific to Turkey. For this purpose, we used the earthquake data of the USGS and KOERI for the years 2016-2020.
+
+The datasets were easily obtained in the web interface thanks to the API provided by the USGS and KOERI. The data used in the analysis consists of data with a magnitude >2.5 in order to increase accuracy and avoid confusion.
+
+## Actions taken
+
+Within the scope of the project, we first tried to clean the data we imported from the USGS and KOERI sites. Because they were included in the dataset for uncertain earthquakes, we had to exclude them so that they do not affect the analysis. When importing the data, it made our job very easy as we got the size >2.5. In the next process, we cleaned ~2k lines of missing data. We reclassified the variables by data types and looked at their statistics for numeric variables to give us an idea. We then decided on the visualizations that we thought might be useful and tried to draw them.
+
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(leaflet)
+library(kableExtra)
+library(lubridate)
+library(sp)
+library(maps)
+library(RColorBrewer)
+library(viridis)
+library(ggpubr)
+```
+
+1. The datasets retrieved from KOERI and USGS has been imported.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#KOERI
+turkey_earthquake <- read_excel("data/boun.xlsx")
+#USGS
+data <- read.csv("data/all_data.csv")
+data <- filter(data, type=="earthquake")
+```
+
+2. Column names and value formats has been modified conveniently.
+
+```{r}
+turkey_tidyquake <- turkey_earthquake %>% 
+                      select(No,
+                             Event_ID = `Deprem Kodu`,
+                             Date = `Olus tarihi`,
+                             Origin_Time = `Olus zamani`,
+                             Latitude = Enlem,
+                             Longitude = Boylam,
+                             Depth_km = `Der(km)`,
+                             Mag = xM,
+                             Type = Tip) %>% 
+                      filter(Type == "Ke")
+```
+
+```{r}
+#KOERI
+turkey_tidyquake$Date <- as.Date(turkey_tidyquake$Date, format = "%Y.%m.%d")
+turkey_tidyquake <- turkey_tidyquake %>% 
+                      mutate(Year = year((Date)),
+                             Month = month((Date)))
+
+#USGS
+data$time <- strptime(data$time, format = "%Y-%m-%dT%H:%M:%OSZ")
+data$year <- format(data$time, format="%Y")
+data$month <- format(data$time, format="%m")
+data$date <- format(data$time, format="%Y%m%d")
+```
+
+
+
+```{r}
+#KOERI
+turkey_tidyquake <- turkey_tidyquake %>% 
+                      mutate(magClass = cut(Mag, breaks=c(2.4,4,5,6,7,9),
+                                            labels=c("2.5-4", "4-5", "5-6", "6-7", "7-9")))
+#USGS
+data<- mutate(data, magClass=cut(data$mag, breaks=c(2.4, 4, 5, 6, 7, 9),
+                                 labels=c("2.5-4", "4-5", "5-6", "6-7", "7-9")))
+```
+
+```{r, echo=FALSE, results='hide'}
+sapply(data[,names(which(sapply(data, class) == "numeric"))],summary)
+```
+
+### Earthquakes Occurred On The World
+```{r, echo=FALSE}
+data16 <- data %>% 
+           filter(year == 2016)
+data17 <- data %>% 
+           filter(year == 2017)
+data18 <- data %>% 
+           filter(year == 2018)
+data19 <- data %>% 
+           filter(year == 2019)
+data20 <- data %>% 
+           filter(year == 2020)
+```
+
+
+```{r, echo=FALSE}
+factpal <- colorNumeric(plasma(5,direction = -1), data$mag) 
+factpal16 <- colorNumeric(plasma(5,direction = -1), data16$mag)
+factpal17 <- colorNumeric(plasma(5,direction = -1), data17$mag)
+factpal18 <- colorNumeric(plasma(5,direction = -1), data18$mag)
+factpal19 <- colorNumeric(plasma(5,direction = -1), data19$mag)
+factpal20 <- colorNumeric(plasma(5,direction = -1), data20$mag)
+mapm <- leaflet(map_data("world")) %>% 
+          addTiles() %>% 
+          addCircles(~data16$longitude, ~data16$latitude, stroke = F, radius = 5, group = "2016", color = ~factpal(data16$mag)) %>% 
+          addCircles(~data17$longitude, ~data17$latitude, stroke = F, radius = 5, group = "2017", color = ~factpal(data17$mag)) %>% 
+          addCircles(~data18$longitude, ~data18$latitude, stroke = F, radius = 5, group = "2018", color = ~factpal(data18$mag)) %>% 
+          addCircles(~data19$longitude, ~data19$latitude, stroke = F, radius = 5, group = "2019", color = ~factpal(data19$mag)) %>% 
+          addCircles(~data20$longitude, ~data20$latitude, stroke = F, radius = 5, group = "2020", color = ~factpal(data20$mag)) %>% 
+          addLegend(position = "bottomright", pal = factpal, values = ~data$mag, title ="Magnitudes") %>% 
+          addLayersControl(overlayGroups = c("2016", "2017", "2018", "2019", "2020"),
+                           options = layersControlOptions(collapsed = FALSE))
+          
+          
+mapm
+```
+
+As seen above, earthquakes that occurred between 2016 and 2020 has been pointed on the map. Atlantic Ocean fault line can be observed on the map.
+
+### Distribution of earthquakes on Turkey according to their magnitude
+
+
+```{r,echo=FALSE}
+tr_data16 <- turkey_tidyquake %>% 
+           filter(Year == 2016)
+tr_data17 <- turkey_tidyquake %>% 
+           filter(Year == 2017)
+tr_data18 <- turkey_tidyquake %>% 
+           filter(Year == 2018)
+tr_data19 <- turkey_tidyquake %>% 
+           filter(Year == 2019)
+tr_data20 <- turkey_tidyquake %>% 
+           filter(Year == 2020)
+```
+
+```{r, echo=FALSE}
+tr_factpal <- colorNumeric(plasma(5,direction = -1), turkey_tidyquake$Mag) 
+tr_factpal16 <- colorNumeric(plasma(5,direction = -1), tr_data16$Mag)
+tr_factpal17 <- colorNumeric(plasma(5,direction = -1), tr_data17$Mag)
+tr_factpal18 <- colorNumeric(plasma(5,direction = -1), tr_data18$Mag)
+tr_factpal19 <- colorNumeric(plasma(5,direction = -1), tr_data19$Mag)
+tr_factpal20 <- colorNumeric(plasma(5,direction = -1), tr_data20$Mag)
+tr_map <- leaflet(map_data("world")) %>% 
+          addTiles() %>% 
+          addCircles(~tr_data16$Longitude, ~tr_data16$Latitude, stroke = T, radius = 5, group = "2016", color = ~factpal(tr_data16$Mag)) %>% 
+          addCircles(~tr_data17$Longitude, ~tr_data17$Latitude, stroke = T, radius = 5, group = "2017", color = ~factpal(tr_data17$Mag)) %>% 
+          addCircles(~tr_data18$Longitude, ~tr_data18$Latitude, stroke = T, radius = 5, group = "2018", color = ~factpal(tr_data18$Mag)) %>% 
+          addCircles(~tr_data19$Longitude, ~tr_data19$Latitude, stroke = T, radius = 5, group = "2019", color = ~factpal(tr_data19$Mag)) %>% 
+          addCircles(~tr_data20$Longitude, ~tr_data20$Latitude, stroke = T, radius = 5, group = "2020", color = ~factpal(tr_data20$Mag)) %>% 
+          addLegend(position = "bottomright", pal = tr_factpal, values = ~turkey_tidyquake$Mag, title ="Magnitudes") %>% 
+          addLayersControl(overlayGroups = c("2016", "2017", "2018", "2019", "2020"),
+                           options = layersControlOptions(collapsed = FALSE))
+          
+          
+tr_map
+```
+
+As seen above, earthquakes are occurred often on northwest to southwest of Turkey. Also, we can see the earthquakes are common on The North Anatolian Fault.
+
+### Pie Chart
+```{r, echo=FALSE}
+counts <- data %>% 
+            group_by(year) %>% 
+            summarise(n=n())
+
+tr_counts <- turkey_tidyquake %>% 
+              group_by(Year) %>% 
+              summarise(n=n())
+
+labels <- c("World", "Turkey")
+```
+
+```{r, echo=FALSE}
+counts16 <- c(counts$n[1], tr_counts$n[1])
+counts17 <- c(counts$n[2], tr_counts$n[2])
+counts18 <- c(counts$n[3], tr_counts$n[3])
+counts19 <- c(counts$n[4], tr_counts$n[4])
+counts20 <- c(counts$n[5], tr_counts$n[5])
+
+percentage16<- round(100*counts16/sum(counts16), 1)
+percentage17<- round(100*counts17/sum(counts17), 1)
+percentage18<- round(100*counts18/sum(counts18), 1)
+percentage19<- round(100*counts19/sum(counts19), 1)
+percentage20<- round(100*counts20/sum(counts20), 1)
+pal1=c("#A6DBA0","#B2182B")
+par(mfrow=c(2,3))
+pie(counts16, col=pal1, xlab="2016", labels = percentage16)
+pie(counts17, col=pal1, xlab="2017", labels = percentage17)
+mtext(side = 3, text = "Earthquake Percentages by Years")
+pie(counts18, col=pal1, xlab="2018", labels = percentage18)
+pie(counts19, col=pal1, xlab="2019", labels = percentage19)
+pie(counts20, col=pal1, xlab="2020", labels = percentage20)
+plot.new()
+legend("bottomright",legend=c("World","Turkey"), fill = pal1)
+par(mfrow=c(1,1))
+```
+
+```{r, echo=FALSE}
+mean_world <- counts %>% 
+                summarise(count_avg=mean(n))
+
+mean_tr <- tr_counts %>%
+            summarise(count_avg=mean(n))
+
+counts_mean <- c(as.numeric(mean_world), as.numeric(mean_tr))
+percentage_mean <- round(100*counts_mean/sum(counts_mean), 1)
+pie(counts_mean, labels = percentage_mean, col = pal1, main = "Mean Earthquake Percentages between 2016-2020")
+```
+
+### Distribution of The Number of Earthquakes by Years.
+As seen below, more than 20 thousand earthquakes occurred each year from 2016 to 2020. In 2018, there were nearly twice as many earthquakes occurred, compared to 2017. This is the highest count of earthquakes in these 5 years.
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+year<-data %>% group_by(year) %>% tally()
+p <- ggplot(year) + geom_bar(aes(x=year, y=n, fill = as.factor(n)), stat="identity")+
+      scale_fill_brewer(palette = "Set1")+
+      theme_minimal()+
+      theme(legend.position = "none")
+p <- p +
+      ggtitle("Distribution of Earthquake Counts in The World by Years") +
+      xlab("Years") + ylab("Counts")
+p
+```
+
+
+In Turkey, there are more than one thousand earthquakes happened each year from 2016 to 2020. In 2017, more than 5000 of earthquakes occurred in Turkey, which is a peak in these 5 years.
+
+```{r, warning=FALSE}
+year_turkey <- turkey_tidyquake %>%
+                group_by(Year) %>% 
+                tally()
+tr_yearthquake <- ggplot(year_turkey) + geom_bar(aes(x = Year, y = n, fill = as.factor(n)),
+                                                 stat = "identity")+
+                  scale_fill_brewer(palette = "Set1")+
+                  theme_minimal()+
+                  theme(legend.position = "none")+
+                  ylab("Counts")
+tr_yearthquake <- tr_yearthquake + ggtitle("Distribution of Earthquake Counts in Turkey by Years")
+tr_yearthquake
+                
+```
+
+#### Distribution of The Number of Earthquakes by Months.
+There are more than 10 thousand earthquakes observed in the world each year from 2016 to 2020. The count of earthquakes increased on Summer. Therefore there could be a relationship between temperature and the earthquakes.
+```{r, warning=FALSE}
+library(RColorBrewer)
+month<-data %>% group_by(month) %>% tally()
+world_monthquake <- ggplot(month) + geom_bar(aes(x=month, y=n, fill= as.factor(n)), stat="identity") +
+     scale_fill_manual(values = colorRampPalette(brewer.pal(9,"Set1"))(12))+
+     theme_minimal()+
+     theme(legend.position = "none")
+world_monthquake <- world_monthquake + ggtitle("Distribution of Earthquake Counts in The World by Months") + xlab("Months") + ylab("Counts")
+world_monthquake
+```
+In Turkey, we also see the number of earthquakes are increased on Summer season, while the most of earthquakes occurred in January and February.
+
+```{r, warning=FALSE}
+tr_monthquake <- turkey_tidyquake %>% 
+                  group_by(Month) %>% 
+                  tally()
+tr_month_plot <- ggplot(tr_monthquake) + geom_bar(aes(x=Month, y=n, fill= as.factor(n)),
+                                                  stat = "identity") +
+                  scale_fill_manual(values = colorRampPalette(brewer.pal(9,"Set1"))(12))+
+                  scale_x_continuous(breaks = c(1:12))+
+                  theme_minimal()+
+                  theme(legend.position = "none")
+tr_month_plot <- tr_month_plot + 
+                  ggtitle("Distribution of Earthquake Counts in Turkey by Months")
+tr_month_plot
+```
+
+#### Distribution of The Earthquakes by years and magnitude classes.
+```{r, warning=FALSE}
+year<-data %>% group_by(year, magClass) %>% tally()
+year%>%ggplot(aes(year, n))+
+geom_point(size=1, col="red")+
+  facet_wrap(~magClass,  ncol=2, scales="free")+
+   ggtitle("Number of Earthquakes by Magnitude Class and Year") +
+           xlab("Year") + ylab("Number of Cases")+
+  theme(plot.title = element_text(face="bold", size=14, hjust=0.5)) +
+theme(axis.title = element_text(face="bold", size=12))
+```
+
+```{r, warning=FALSE}
+year<-turkey_tidyquake %>% group_by(Year, magClass) %>% tally()
+year%>%ggplot(aes(Year, n))+
+geom_point(size=1, col="red")+
+  facet_wrap(~magClass,  ncol=2, scales="free")+
+   ggtitle("Number of Earthquakes by Magnitude Class and Year") +
+           xlab("Year") + ylab("Number of Cases")+
+  theme(plot.title = element_text(face="bold", size=14, hjust=0.5)) +
+theme(axis.title = element_text(face="bold", size=12))
+```
+
+
+#### Let's examine the distribution of earthquakes by months and magnitude classes.
+```{r, warning=FALSE}
+month<-data %>% group_by(month, magClass) %>% tally()
+month%>%ggplot(aes(month, n))+
+geom_point(size=1, col="red")+
+  facet_wrap(~magClass,  ncol=2, scales="free")+
+   ggtitle("Number of Earthquakes by Magnitude Class and Month") +
+           xlab("Months") + ylab("Number of Cases")+
+  theme(plot.title = element_text(face="bold", size=14, hjust=0.5)) +
+theme(axis.title = element_text(face="bold", size=12))
+```
+
+#### Density Plots
+```{r, warning=FALSE}
+ggdensity(data$mag, 
+          main = "Density Plot of Magnitude in The World",
+          xlab = "Magnitude")
+```
+
+```{r}
+ggdensity(turkey_tidyquake$Mag,
+          main = "Density plot of magnitude in Turkey",
+          xlab = "Magnitude")
+```
+
+
+
+##	Results and Discussion
+As a result of our research, we have reached:
+We learned the averages of earthquake magnitudes in the world.
+On the world map, we have seen that earthquakes are more intense on coastlines.
+Compared to other years, we saw that the number of earthquakes in 2018 was almost doubled.
+We observed an increase in the number of earthquakes in the summer months. This increase seems especially 2.5-4 magnitude range.
+
+Thanks to our project, we obtained separate insights from earthquake data of the World and Turkey.
+We checked whether the earthquake relations are a link between the world and Turkey. We compared the world averages with Turkey, which is known as the earthquake zone.
+In this process, we determined that we could make comparisons on the basis of size, hourly, seasonal, seasonal (sea/terrestrial) and we focused on these factors in our research accordingly.
+
+
+##	Conclusion
+As a result, we used data transfer, cleaning, reconstruction according to data types and basic visualization processes in the analysis of earthquake data in the world and Turkey between the years 2016-2020, which we obtained from USGS and KOERI organizations, which we identified as reliable data sources. In this way, we provided the opportunity to visually see whether there is a similarity between the earthquakes that took place in the world and in Turkey. In this way, we tried to figure out whether our country, which we refer to as an earthquake zone, is really an above-average earthquake zone when compared to other countries in the world.
+
+You can also access our project's GitHub page here:
+[Statistics of earthquake hazards in Turkey and comparison with the world](https://github.com/MAT381E-Fall21/project_final_report-na)
+
+
+## References
+* https://earthquake.usgs.gov/earthquakes/search/
+* https://earthquake.usgs.gov/data/comcat/index.php
+* http://www.koeri.boun.edu.tr/sismo/2/earthquake-catalog/
+* https://towardsdatascience.com/reverse-geocoding-in-r-f7fe4b908355
+* https://tevfikbulut.com/2020/02/02/exploratory-data-analysis-of-turkey-earthquakes-ii/
+* https://www.r-bloggers.com/2019/04/earthquake-analysis-1-4-quantitative-variables-exploratory-analysis/
+
+
+
